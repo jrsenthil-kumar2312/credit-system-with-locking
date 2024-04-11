@@ -24,8 +24,7 @@ describe('Users Endpoint', () => {
         .send(data.validCreateUser)
         .expect(httpStatus.CREATED);
 
-      expect(res.body).to.have.property('body');
-      expect(res.body.body.id).to.not.be.undefined;
+        expect(res.body.success).to.be.true;
     });
 
     it('should return error if input schema validation fails', async () => {

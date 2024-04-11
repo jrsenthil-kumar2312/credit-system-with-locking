@@ -47,7 +47,8 @@ const loginUser = async (req, res) => {
  */
 const addUser = async (req, res) => {
   const userDetails = await create(req.body);
-  res.status(httpStatus.CREATED).send(responseHandler(userDetails));
+  
+  res.status(httpStatus.CREATED).send(responseHandler());
 };
 
 /**

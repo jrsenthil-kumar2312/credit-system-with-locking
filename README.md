@@ -35,6 +35,8 @@ additional improvements that can be done to improve the whole implementation.
 1. You can download or clone this repo and start the application by running the steps below.
 
 ```sh
+docker-compose down -v (if you have run it previously)
+
 docker-compose build
 
 docker-compose up
@@ -94,6 +96,9 @@ Steps to test the application manually without Swagger.
 ## 🧪 Tests
 
 ```sh
+
+docker-compose down -v
+
 docker-compose build
 
 docker compose run app npm test 
