@@ -24,7 +24,7 @@ Basic implementation of Credit APIs with `Node.js Express` framework using `Sequ
 
 ## 🚀 Getting Started
 
-You can download or clone this repo and start the application by running the steps below.:
+1. You can download or clone this repo and start the application by running the steps below
 
 ```sh
 docker-compose build
@@ -32,6 +32,39 @@ docker-compose build
 docker-compose up
 ```
 
+2. By default, demo user data and demo credit data are added to the db.
+
+## 🚀 Testing the API
+1. All the APIs are protected by authorization token (JWT) except for user endpoint
+Protected endpoints:
+GET /v1/credit/users/:userId/balance
+POST /v1/credit/users/:userId/add
+POST /v1/credit/users/:userId/deduct
+POST /v1/credit/users/:userId/recalculate
+
+Unprotected endpoints:
+POST /v1/users/
+GET /v1/users/:userId
+POST /v1/users/login
+
+Steps to test the application
+
+1. POST /v1/users/ --> To create user and get the authorization token OR 
+2. POST /v1/users/login --> To get the authorization token with existing user
+   Payload :
+   {
+     "username": "JohnDoe23"
+     "password": "password"
+   }
+3. Copy the "token" and add it as "Authorization: Bearer <token>".
+   Below is the sample curl command:
+   curl --location 'http://127.0.0.1:3000/v1/credit/users/1/add' \
+    --header 'Content-Type: application/json' \
+    --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJqcnNlbnRoaWxrIiwiaWF0IjoxNzEyNTYxNTExfQ.tZ_viDFxXGfy0mQWuQgeItPXjqR15R1cMXuay8sP9K8' \
+    --data '{
+        "amount": 25
+    }'
+    
 ## 🧪 Tests & Coverage
 
 ```sh

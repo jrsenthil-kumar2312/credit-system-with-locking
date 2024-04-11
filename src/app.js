@@ -61,7 +61,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
 app.use('/health', healthRoute);
 
 const unprotected = [
-  /v1\/users*/,
+  /v1\/users/,
   /favicon.ico/,
 ];
 
