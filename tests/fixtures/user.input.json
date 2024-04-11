@@ -1,0 +1,23 @@
+{
+  "validInsert": {
+    "id": 1,
+    "firstName": "Mark",
+    "lastName": "Anthony",
+    "username": "mark_anthony",
+    "password": "password"
+  },
+  "validCreateUser": {
+    "firstName": "Mark",
+    "lastName": "Anthony",
+    "username": "mark_anthony",
+    "password": "password"
+  },
+  "validLogin": {
+    "username": "mark_anthony",
+    "password": "password"
+  },
+  "schemaError": {
+    "firstNames": "Johnny",
+    "lastName": "Random"
+  }
+}

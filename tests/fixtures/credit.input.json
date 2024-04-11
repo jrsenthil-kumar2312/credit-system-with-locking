@@ -1,0 +1,14 @@
+{
+    "validInsert": {
+      "userId": 1,
+      "amount": 100,
+      "balance": 100,
+      "action_type": "Add"
+    },
+    "validAdd": {
+      "amount": 2
+    },
+    "addSchemaError": {
+      "amount": "test"
+    }
+}
