@@ -5,9 +5,10 @@ Basic implementation of Credit APIs with `Node.js Express` framework using `Sequ
 ## Important Note:
 1. I kept the API implementation simple and below are some of the 
 additional improvements that can be done to improve the whole implementation.
-  a. Implement password hashing - currently, it uses raw string which is not a secure practise.
-  b. Use User uuid instead of userId in URL - this has potential to leak our user size.
-  c. I have added few unit tests but it does not cover all the use cases.
+  - Implement password hashing - currently, it uses raw string which is not a secure practise.
+  - Use User uuid instead of userId in URL - this has potential to leak our user size.
+  - Move db related queries from "service" to "repository". This improves isolation.
+  - I have added few unit tests but it does not cover all the use cases.
 
 
 ## Includes
@@ -56,16 +57,16 @@ docker-compose up
 
 ## 🚀 Testing the API
 1. All the APIs are protected by authorization token (JWT) except for user endpoint
-Protected endpoints:
-GET /v1/credit/users/:userId/balance
-POST /v1/credit/users/:userId/add
-POST /v1/credit/users/:userId/deduct
-POST /v1/credit/users/:userId/recalculate
+- Protected endpoints:
+  - GET /v1/credit/users/:userId/balance
+  - POST /v1/credit/users/:userId/add
+  - POST /v1/credit/users/:userId/deduct
+  - POST /v1/credit/users/:userId/recalculate
+  - GET /v1/users/:userId
 
-Unprotected endpoints:
-POST /v1/users/
-GET /v1/users/:userId
-POST /v1/users/login
+- Unprotected endpoints:
+  - POST /v1/users/
+  - POST /v1/users/login
 
 Steps to test the application manually without Swagger.
 
