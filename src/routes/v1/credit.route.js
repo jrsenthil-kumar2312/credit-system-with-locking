@@ -1,5 +1,6 @@
 import express from 'express';
 import { Validator } from 'express-json-validator-middleware';
+import { verifyToken } from '../../middlewares/jwt.js';
 
 import {
   addCredit, deductCredit, getBalanceCredit, reCalculateUserCreditBalance,
@@ -148,18 +149,18 @@ const { validate } = new Validator();
 
 router
   .route('/balance')
-  .get(getBalanceCredit);
+  .get(verifyToken, getBalanceCredit);
 
 router
   .route('/add')
-  .post(validate({ body: addCreditSchema }), addCredit);
+  .post(verifyToken, validate({ body: addCreditSchema }), addCredit);
 
 router
   .route('/deduct')
-  .post((deductCredit));
+  .post(verifyToken, deductCredit);
 
 router
   .route('/recalculate')
-  .post(reCalculateUserCreditBalance);
+  .post(verifyToken, reCalculateUserCreditBalance);
 
 export default router;

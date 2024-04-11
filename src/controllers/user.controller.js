@@ -28,12 +28,13 @@ const { NotFoundError } = errors.default;
  * @param {*} res - express HTTP response object
  */
 const loginUser = async (req, res) => {
-  const user = await findByUsername(req.body.username);
+  const user = await findByUsername(req.body.username, req.body.password);
+
   if (user) {
-    const token = jwt.sign({ id: 1, username: 'jrsenthilk' }, process.env.TOKEN_SECRET);
+    const token = jwt.sign({ userId: user.id, userName: user.username}, process.env.TOKEN_SECRET);
     res.json({ token });
   } else {
-    res.status(httpStatus[401]).json({ message: 'Invalid credentials' });
+    res.status(httpStatus.UNAUTHORIZED).json({ message: 'Invalid credentials' });
   }
 };
 

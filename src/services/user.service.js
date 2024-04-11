@@ -29,9 +29,10 @@ const findById = async userId => CreditUser.findOne({ where: { id: userId } });
  * findById function to fetch data for provided userId
  *
  * @param {number} userId - user id for which data needs to be fetched
- * @returns {Promise} User objectw
+ * @returns {Promise} User object
  */
-const findByUsername = async username => CreditUser.findOne({ where: { username } });
+const findByUsername = async (username, password) => CreditUser.findOne(
+  { where: { username:username, password: password } });
 
 /**
  * create function to add new user

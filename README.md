@@ -2,6 +2,13 @@
 
 Basic implementation of Credit APIs with `Node.js Express` framework using `Sequelize` with `PostgreSQL` database.
 
+## Important Note:
+1. I kept the API implementation simple and below are some of the 
+additional improvements that can be done to improve the whole implementation.
+  a. Implement password hashing - currently, it uses raw string which is not a secure practise.
+  b. Use User uuid instead of userId in URL - this has potential to leak our user size.
+  c. I have added few unit tests but it does not cover all the use cases.
+
 
 ## Includes
 
@@ -24,15 +31,28 @@ Basic implementation of Credit APIs with `Node.js Express` framework using `Sequ
 
 ## 🚀 Getting Started
 
-1. You can download or clone this repo and start the application by running the steps below
+1. You can download or clone this repo and start the application by running the steps below.
 
 ```sh
 docker-compose build
 
 docker-compose up
 ```
+2. Application can be accessed from : http://localhost:3000/ (just to check if the app is up.)
 
-2. By default, demo user data and demo credit data are added to the db.
+3. API documentation link - Swagger: http://localhost:3000/api-docs/
+
+4. By default, demo user data and demo credit data are added to the db. May use userId=1
+   for the URLs mentioned below.
+
+   Demo User 1:
+    first_name: 'John',
+    last_name: 'Doe',
+    username: "JohnDoe23",
+    password: "password",
+
+5. I have included .env file as part of the git too for testing purposes only. It's definitely
+   not encouraged in real projects.
 
 ## 🚀 Testing the API
 1. All the APIs are protected by authorization token (JWT) except for user endpoint
@@ -47,25 +67,30 @@ POST /v1/users/
 GET /v1/users/:userId
 POST /v1/users/login
 
-Steps to test the application
+Steps to test the application manually without Swagger.
 
-1. POST /v1/users/ --> To create user and get the authorization token OR 
-2. POST /v1/users/login --> To get the authorization token with existing user
+1. POST /v1/users/ --> To create a new user (optional as demo users are created by default) 
+
+2. POST /v1/users/login --> To get the authorization token with existing user.
+   The example below can be used to get the authorization token.
    Payload :
    {
      "username": "JohnDoe23"
      "password": "password"
    }
+
 3. Copy the "token" and add it as "Authorization: Bearer <token>".
-   Below is the sample curl command:
+   Below is the sample curl command to add credit:
    curl --location 'http://127.0.0.1:3000/v1/credit/users/1/add' \
     --header 'Content-Type: application/json' \
     --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJqcnNlbnRoaWxrIiwiaWF0IjoxNzEyNTYxNTExfQ.tZ_viDFxXGfy0mQWuQgeItPXjqR15R1cMXuay8sP9K8' \
     --data '{
         "amount": 25
     }'
-    
-## 🧪 Tests & Coverage
+
+4. A user will not be able to change another user's credits or check the balance.
+
+## 🧪 Tests
 
 ```sh
 docker-compose build

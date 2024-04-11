@@ -60,15 +60,6 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
 
 app.use('/health', healthRoute);
 
-const unprotected = [
-  /v1\/users/,
-  /favicon.ico/,
-];
-
-app.use(expressjwt(
-  { secret: process.env.TOKEN_SECRET, algorithms: ['HS256'] },
-).unless({ path: unprotected }));
-
 // v1 api routes
 app.use('/v1', v1Routes);
 
@@ -77,12 +68,6 @@ app.use(notFoundHandler);
 
 // catch all errors
 app.use(errorHandler);
-
-app.use((err, req, res, next) => {
-  if (err.name === 'UnauthorizedError') {
-    res.send(401, 'invalid token...');
-  }
-});
 
 // generate swagger API specifications in yaml format
 generateSpecs();

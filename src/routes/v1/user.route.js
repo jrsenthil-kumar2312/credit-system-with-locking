@@ -5,6 +5,7 @@ import {
   addUser, getUsers, getUser, loginUser,
 } from '../../controllers/user.controller.js';
 import { addUserSchema } from '../../validations/users-request.schema.js';
+import { verifyToken } from '../../middlewares/jwt.js';
 
 const router = express.Router();
 const { validate } = new Validator();
@@ -148,6 +149,6 @@ router
 
 router
   .route('/:userId([0-9]+)')
-  .get(getUser);
+  .get(verifyToken, getUser);
 
 export default router;
