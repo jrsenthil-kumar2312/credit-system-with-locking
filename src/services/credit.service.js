@@ -13,7 +13,7 @@ import sequelize from '../config/sequelize.js';
  * @constant {Sequelize.models} - CreditUser & Credit model extracted from db import
  */
 const { Credit } = db.db;
-const { NotFoundError } = errors.default;
+const { NotFoundError, Conflict } = errors.default;
 
 /**
  * To fetch latest credit data for provided userId
@@ -38,7 +38,7 @@ const getLatestCreditDetailsByUserId = async (userId, transaction = null) => {
 /**
  * Create function to add credit by user id.
  *
- * @param {number} userId - user id for which data needs to be fetched.
+ * @param {number} userId - user id for the user to add credit for.
  * @param {number} amount - amount of credit to be added for the user.
  */
 const addCreditByUserId = async (userId, amount) => {
@@ -92,7 +92,7 @@ const deductCreditByUserId = async (userId, amount) => {
     const creditBalanceAfterDeduction = creditBalance - amount;
 
     if (creditBalance === 0 || creditBalanceAfterDeduction < 0) {
-      throw new Error('Insufficient credit balance');
+      throw new Conflict('Insufficient credit balance');
     }
 
     await Credit.create({
@@ -103,7 +103,9 @@ const deductCreditByUserId = async (userId, amount) => {
     }, { transaction: t });
 
     await t.commit();
+
   } catch (error) {
+
     await t.rollback();
 
     if (error instanceof EmptyResultError) {

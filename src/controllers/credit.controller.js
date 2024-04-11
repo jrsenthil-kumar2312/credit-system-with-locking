@@ -9,6 +9,7 @@ import * as response from '../middlewares/response-handler.js';
 import {
   getLatestCreditDetailsByUserId, deductCreditByUserId, addCreditByUserId, reCalculateCreditBalance,
 } from '../services/credit.service.js';
+const {Conflict } = errors.default;
 
 const TOTAL_CREDIT_TO_DEDUCT_PER_CALL = 1;
 
@@ -45,8 +46,12 @@ const getBalanceCredit = async (req, res) => {
  * @param {*} res - express HTTP response object
  */
 const deductCredit = async (req, res) => {
-  await deductCreditByUserId(req.params.userId, TOTAL_CREDIT_TO_DEDUCT_PER_CALL);
-  res.status(httpStatus.OK).send(responseHandler());
+  try{
+    await deductCreditByUserId(req.params.userId, TOTAL_CREDIT_TO_DEDUCT_PER_CALL);
+    res.status(httpStatus.OK).send(responseHandler());
+  }catch(error){
+    throw new Conflict(error.message)
+  }
 };
 
 /**

@@ -8,7 +8,10 @@ additional improvements that can be done to improve the whole implementation.
   - Implement password hashing - currently, it uses raw string which is not a secure practise.
   - Use User uuid instead of userId in URL - this has potential to leak our user size.
   - Move db related queries from "service" to "repository". This improves isolation.
+  - Implement dependency injection. This will allow us to follow clean architecture and avoid
+    high-level module from importing low-level module.
   - I have added few unit tests but it does not cover all the use cases.
+2. In order to handle race condition, I have added table locking mechanism for updating credit.
 
 
 ## Includes
