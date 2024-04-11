@@ -16,9 +16,10 @@ const { Credit } = db.db;
 const { NotFoundError } = errors.default;
 
 /**
- * findById function to fetch data for provided userId
+ * To fetch latest credit data for provided userId
  *
  * @param {number} userId - user id for which data needs to be fetched
+ * @param {object} transaction - transaction in which the query to be executed if provided.
  * @returns {Promise} Credit object
  */
 const getLatestCreditDetailsByUserId = async (userId, transaction = null) => {
@@ -35,10 +36,10 @@ const getLatestCreditDetailsByUserId = async (userId, transaction = null) => {
 };
 
 /**
- * create function to add credit by user id.
+ * Create function to add credit by user id.
  *
- * @param {object} data - user object with information to be saved in system
- * @returns {Promise} Created user object
+ * @param {number} userId - user id for which data needs to be fetched.
+ * @param {number} amount - amount of credit to be added for the user.
  */
 const addCreditByUserId = async (userId, amount) => {
   const t = await sequelize.transaction();
@@ -71,10 +72,10 @@ const addCreditByUserId = async (userId, amount) => {
 };
 
 /**
- * create function to add new user
+ * Create function to deduct credit by user id.
  *
- * @param {object} data - user object with information to be saved in system
- * @returns {Promise} Created user object
+ * @param {number} userId - user id for which data needs to be fetched
+ * @param {number} amount - amount of credit to be deducted for the user.
  */
 const deductCreditByUserId = async (userId, amount) => {
   let creditBalance = 0;
@@ -113,6 +114,12 @@ const deductCreditByUserId = async (userId, amount) => {
   }
 };
 
+
+/**
+ * Function to re-calculate and update user's credit balance.
+ *
+ * @param {number} userId - user id for which data needs to be fetched
+ */
 const reCalculateCreditBalance = async userId => {
   // To save number of of times we hit database,
   // the sum of each action was calculated in a single query.
@@ -141,6 +148,7 @@ const reCalculateCreditBalance = async userId => {
     const addedCreditSum = creditAmountDetails.find(
       credit => credit.action_type === CreditActionType.ADD,
     )?.dataValues.totalAmount || 0;
+
     const deductedCreditSum = creditAmountDetails.find(
       credit => credit.action_type === CreditActionType.DEDUCT,
     )?.dataValues.totalAmount || 0;
