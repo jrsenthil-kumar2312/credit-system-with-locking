@@ -28,11 +28,12 @@ const { validate } = new Validator();
  *
  *     AddCreditRequest:
  *       allOf:
- *       - $ref: '#/components/schemas/Credit'
  *       - type: object
  *         properties:
- *            amount: number
- *            description: The amount of credit to add.
+ *           amount:
+ *             type: integer
+ *             description: Amount of credit to add.
+ *             example: 25
  *
  *     ChangeCreditSuccess:
  *       type: object
@@ -66,7 +67,16 @@ const { validate } = new Validator();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ChangeCreditSuccess'
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                   description: Flag stating status of API call
+ *                   example: true
+ *                 creditBalance:
+ *                   type: integer
+ *                   Example: 100
+ *                     
  *
  * /v1/credit/users/{userId}/add:
  *   post:
@@ -87,7 +97,7 @@ const { validate } = new Validator();
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/CreateUserRequest'
+ *             $ref: '#/components/schemas/AddCreditRequest'
  *     responses:
  *       200:
  *         description: Added user's credit

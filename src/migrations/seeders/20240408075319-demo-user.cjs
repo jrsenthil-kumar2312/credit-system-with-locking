@@ -16,7 +16,7 @@ module.exports = {
       username: "MaryDoe23",
       password: "password2",
     },
-  ]);
+  ], {ignoreDuplicates: true});
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.bulksDelete('credit_user', null, {});

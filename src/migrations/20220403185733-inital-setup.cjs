@@ -15,7 +15,8 @@ module.exports = {
           password character varying(128) COLLATE pg_catalog."default" NOT NULL,
           created_at timestamp with time zone default CURRENT_TIMESTAMP,
           updated_at timestamp with time zone default CURRENT_TIMESTAMP,
-          CONSTRAINT credit_user_pkey PRIMARY KEY (id)
+          CONSTRAINT credit_user_pkey PRIMARY KEY (id),
+          UNIQUE (username)
       );
     `);
   },
