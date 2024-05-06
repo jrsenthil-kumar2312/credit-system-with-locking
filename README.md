@@ -1,4 +1,4 @@
-# Credit System - Chasm
+# Credit System with Table Locking
 
 This code shows a basic implementation of database table locking to ensure data consistency.
 This is based on a simple Credit APIs with `Node.js Express` framework using `Sequelize` with `PostgreSQL` database.
