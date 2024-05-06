@@ -1,6 +1,7 @@
 # Credit System - Chasm
 
-Basic implementation of Credit APIs with `Node.js Express` framework using `Sequelize` with `PostgreSQL` database.
+This code shows a basic implementation of database table locking to ensure data consistency.
+This is based on a simple Credit APIs with `Node.js Express` framework using `Sequelize` with `PostgreSQL` database.
 
 ## Important Note:
 1. I kept the API implementation simple and below are some of the 
@@ -10,8 +11,6 @@ additional improvements that can be done to improve the whole implementation.
   - Move db related queries from "service" to "repository". This improves isolation.
   - Implement dependency injection. This will allow us to follow clean architecture and avoid
     high-level module from importing low-level module.
-  - I have added few unit tests but it does not cover all the use cases.
-2. In order to handle race condition, I have added table locking mechanism for updating credit.
 
 
 ## Includes
